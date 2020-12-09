@@ -5,11 +5,12 @@ import com.common.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDao {
 
-    public boolean validate(String username, String password) {
+    public boolean validate(String username, String password) throws SQLException {
         boolean flag = false;
 
         DatabaseConnection db = new DatabaseConnection();
@@ -33,6 +34,7 @@ public class UserDao {
                     System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             }
         }
+        con.close();
         return flag;
     }
 

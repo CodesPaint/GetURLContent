@@ -4,12 +4,9 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-
         <link rel="stylesheet" href="assets/css/main.css">
         <jsp:include page="base.jsp"></jsp:include>
         <title>URL Entry</title>
-
-        
     </head>
     <body>
         <%
@@ -28,7 +25,6 @@
                             <div class="form-group" >
                                 <label for="InputURL" class="text-uppercase">URL</label>
                                 <input type="text" name="txturl" class="form-control" placeholder="Enter URL" required>
-
                             </div>
                             <br/>
 

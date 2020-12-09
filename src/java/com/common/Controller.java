@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.common;
 
 import java.io.BufferedReader;
@@ -14,6 +10,9 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -74,11 +73,13 @@ public class Controller extends HttpServlet {
             String parsedata = Jsoup.parse(res).text();
 
             request.setAttribute("resultdata", parsedata.toString());
+            request.setAttribute("searchurl",url);
             request.getRequestDispatcher("searchresults.jsp").forward(request, response);
         }
         if (op != null && op.equals("savedata")) {
             String data = request.getParameter("result").toString();
-            System.out.println("Length: " + data.length());
+            String url=request.getParameter("url").toString();
+            
             DatabaseConnection db = new DatabaseConnection();
             Connection con = db.dbConnection();
             String username = (String) request.getSession().getAttribute("currentuser");
@@ -88,18 +89,27 @@ public class Controller extends HttpServlet {
             }
             if (con != null) {
                 try {
-                    String sql = "insert into searchrecords(username,record) values(?,?);";
+                    String sql = "insert into searchrecords(username,url,record) values(?,?,?);";
                     PreparedStatement smt = con.prepareStatement(sql);
                     smt.setString(1, username);
-                    smt.setString(2, data);
+                    smt.setString(2, url);
+                    smt.setString(3,data);
                     if (smt.executeUpdate() != 0) {
                         out.println("<script>alert('URL Content Saved Successfully!!');</script>");
+                        out.println("<script>window.location.href = \"urlentry.jsp\";</script>");
+                        
+                        //response.sendRedirect("urlentry.jsp");
                     } else {
                         out.println("<script>alert('URL Content Can not Saved!!');</script>");
                     }
                 } catch (Exception e) {
                     System.out.println(e);
                 }
+            }
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
