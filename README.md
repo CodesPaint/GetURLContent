@@ -2,6 +2,8 @@
 
 ## SAARTHI ASSIGNMENT (INTERNSHIP)
 For: Backend Developer
+Author: Abhishek Soy
+Email: soyabhishek81@gmail.com
 
 ### Default Usernane & Password
 ```sh
