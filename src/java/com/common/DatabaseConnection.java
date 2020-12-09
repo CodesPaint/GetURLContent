@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class DatabaseConnection {
 
     Connection connection;
-    String url = "jdbc:postgresql://localhost:5432/geturlcontent";
+    String url = "postgres://hiddwsdfrrigts:b101fccebf671cae171ee25398a94aa3f489c6efb8e7108cf8aa62f4812ede0c@ec2-18-206-103-49.compute-1.amazonaws.com:5432/dfmtaathtfekd1";
     String user = "postgres";
     String password = "31";
 
